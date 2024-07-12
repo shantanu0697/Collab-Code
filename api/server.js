@@ -4,10 +4,11 @@ const http = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
 const ACTIONS = require("../src/Actions");
+const cors = require("cors");
 
 const server = http.createServer(app);
 const io = new Server(server);
-
+app.use(cors());
 app.use(express.static(path.join(__dirname, "../build"))); // Adjust the path as necessary
 
 app.use((req, res, next) => {
