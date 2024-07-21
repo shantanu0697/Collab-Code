@@ -36,7 +36,6 @@ const EditorPage = () => {
         username: location.state?.username,
       });
 
-      // Listening for joined event
       socketRef.current.on(
         ACTIONS.JOINED,
         ({ clients, username, socketId }) => {
@@ -52,7 +51,6 @@ const EditorPage = () => {
         }
       );
 
-      // Listening for disconnected
       socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
         toast.success(`${username} left the room.`);
         setClients((prev) => {
@@ -66,7 +64,7 @@ const EditorPage = () => {
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
     };
-  }, [location.state?.username, reactNavigator, roomId]);
+  }, [location.state?.username, reactNavigator, roomId]); // Add dependencies
 
   async function copyRoomId() {
     try {
