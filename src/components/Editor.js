@@ -35,7 +35,7 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
       });
     }
     init();
-  }, []);
+  }, [socketRef, roomId, onCodeChange]);
 
   useEffect(() => {
     if (socketRef.current) {
@@ -47,9 +47,11 @@ const Editor = ({ socketRef, roomId, onCodeChange }) => {
     }
 
     return () => {
-      socketRef.current.off(ACTIONS.CODE_CHANGE);
+      if (socketRef.current) {
+        socketRef.current.off(ACTIONS.CODE_CHANGE);
+      }
     };
-  }, [socketRef.current]);
+  }, [socketRef]);
 
   return <textarea id="realtimeEditor"></textarea>;
 };
